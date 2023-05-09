@@ -15,9 +15,15 @@ class SeriesController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return Series::all();
+        if(!$request->has('nome')){
+            return Series::all();
+        }
+
+        return Series::whereNome($request->nome)->get();
+        //return Series::where('nome', $request->nome)->get();
+        //return Series::where('idade', '>', 18)->get();
     }
 
     public function store(SeriesFormRequest $request)
